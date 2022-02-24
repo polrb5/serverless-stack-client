@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import { useAppContext } from '../../libs/contextLib';
 import { Box, Flex } from '../ui';
 
 const HeaderWrapper = styled.header`
@@ -14,7 +15,7 @@ const HeaderContent = styled(Flex)`
   max-width: ${({ theme }) => theme.sizes.maxWidth};
 `;
 
-const HeaderLink = styled(NavLink)`
+const HeaderLink = styled(Link)`
   color: ${({ theme }) => theme.colors.black};
   text-decoration: none;
   transition: all 0.2s;
@@ -33,26 +34,41 @@ const NavLinksWrapper = styled(Flex)`
   gap: 4rem;
 `;
 
-const Header = () => (
-  <HeaderWrapper>
-    <HeaderContent>
-      <Box>
-        <HeaderLink to="/">
-          Scratch
-        </HeaderLink>
-      </Box>
-      <NavBar justify="flex-end">
-        <NavLinksWrapper justifyContent="center">
-          <Box>
-            <HeaderLink to="/signup">SignUp</HeaderLink>
-          </Box>
-          <Box>
-            <HeaderLink to="/login">Login</HeaderLink>
-          </Box>
-        </NavLinksWrapper>
-      </NavBar>
-    </HeaderContent>
-  </HeaderWrapper>
-);
+const Header = () => {
+  const { isAuthenticated, userHasAuthenticated } = useAppContext();
+
+  const handleLogut = () => userHasAuthenticated(false);
+
+  return (
+    <HeaderWrapper>
+      <HeaderContent>
+        <Box>
+          <HeaderLink to="/">
+            Scratch
+          </HeaderLink>
+        </Box>
+        <NavBar justify="flex-end">
+          <NavLinksWrapper justifyContent="center">
+            {isAuthenticated ? (
+              <Box>
+                <HeaderLink to="#" onClick={handleLogut}>Logout</HeaderLink>
+              </Box>
+            )
+              : (
+                <>
+                  <Box>
+                    <HeaderLink to="/signup">SignUp</HeaderLink>
+                  </Box>
+                  <Box>
+                    <HeaderLink to="/login">Login</HeaderLink>
+                  </Box>
+                </>
+              )}
+          </NavLinksWrapper>
+        </NavBar>
+      </HeaderContent>
+    </HeaderWrapper>
+  );
+};
 
 export default Header;

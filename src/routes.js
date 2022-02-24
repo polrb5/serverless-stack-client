@@ -1,45 +1,20 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
 import Home from './components/Home';
-import MainLayout from './components/layout/MainLayout';
+import Login from './pages/Login';
 
 const Routes = () => (
-  <Router>
-    <Switch>
-      <MainLayout>
-        <Route path="/">
-          <Home />
-        </Route>
-        {/* <Route path="/signup">
-        <Signup />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route> */}
-      </MainLayout>
-
-      {/* <PrivateRoute exact path="/my-courses">
-          <MyCourses />
-        </PrivateRoute>
-        <PrivateRoute exact path="/my-account">
-          <MyAccount />
-        </PrivateRoute>
-        <PrivateRoute path="/course/:idCourse/:idSubmodule/:submodule">
-          <Content />
-        </PrivateRoute>
-        <PrivateRoute exact path="/course/:idCourse">
-          <Course />
-        </PrivateRoute>
-        <PrivateRoute exact path="/">
-          <Courses />
-        </PrivateRoute>
-      </MainLayout>
-      <PrivateRoute path="/checkout/:idCourse">
-        <CheckoutLayout>
-          <Checkout />
-        </CheckoutLayout>
-      </PrivateRoute> */}
-    </Switch>
-  </Router>
+  <Switch>
+    <Route exact path="/">
+      <Home />
+    </Route>
+    {/* <Route path="/signup">
+          <Signup />
+        </Route> */}
+    <Route exact path="/login">
+      <Login />
+    </Route>
+  </Switch>
 );
 
 export default Routes;
